@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chatbot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      //1.Function ChatInput
+      function ChatInput({ chatMessages, setChatMessages }) {
+        const [inputText, setInputText] = React.useState("");
+
+        function saveInputText(event) {
+          setInputText(event.target.value);
+        }
+
+        function send() {
+          //... spread operator
+          const newChatMessages = [
+            ...chatMessages,
+            {
+              message: inputText,
+              sender: "user",
+              id: crypto.randomUUID(),
+            },
+          ];
+
+          setChatMessages(newChatMessages);
+
+          //to clear the input box after typing in it
+          setInputText("");
+
+          //get the correspondant response
+          const response = Chatbot.getResponse(inputText);
+
+          //generate the message in html
+          setChatMessages(
+            //... spread operator
+            [
+              ...newChatMessages,
+              {
+                message: response,
+                sender: "robot",
+                id: crypto.randomUUID(),
+              },
+            ],
+          );
+        }
+        return (
+          <>
+            <input
+              placeholder="Send a message to chatbot"
+              size="30"
+              onChange={saveInputText}
+              value={inputText}
+            />
+
+            <button onClick={send}>Send</button>
+          </>
+        );
+      }
+
+      //2. Function ChatMessage
+      function ChatMessage({ message, sender }) {
+        // const message = props.message;
+        // const sender = props.sender;
+        // const { message, sender } = props;
+
+        //intead of duplicating the code we use this
+        return (
+          <div>
+            {sender === "robot" && (
+              <img src="robot.png" alt="user" width="50" />
+            )}
+            {message}
+            {sender === "user" && <img src="user.png" alt="user" width="50" />}
+          </div>
+        );
+      }
+
+      //3. Function ChatMessages
+      function ChatMessages({ chatMessages }) {
+        return (
+          <>
+            {chatMessages.map((element) => {
+              return (
+                <ChatMessage
+                  message={element.message}
+                  sender={element.sender}
+                  key={element.id}
+                />
+              );
+            })}
+          </>
+        );
+      }
+
+      function App() {
+        // const array = React.useState([
+        //   { message: "hello chatbot", sender: "user", id: "id1" },
+        //   { message: "Hello, how can I help you?", sender: "robot", id: "id2" },
+        //   { message: "can you get me todays date?", sender: "user", id: "id3" },
+        //   { message: "Today is June 29", sender: "robot", id: "id4" },
+        // ]);
+        //the initial state of the array
+        // const chatMessages = array[0];
+        //update the html
+        // const setChatMessages = array[1];
+
+        const [chatMessages, setChatMessages] = React.useState([
+          { message: "hello chatbot", sender: "user", id: "id1" },
+          { message: "Hello, how can I help you?", sender: "robot", id: "id2" },
+          { message: "can you get me todays date?", sender: "user", id: "id3" },
+          { message: "Today is June 29", sender: "robot", id: "id4" },
+        ]);
+
+        return (
+          <>
+            <ChatInput
+              setChatMessages={setChatMessages}
+              chatMessages={chatMessages}
+            />
+            <ChatMessages chatMessages={chatMessages} />
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
