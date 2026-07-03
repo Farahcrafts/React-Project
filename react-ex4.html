@@ -12,29 +12,23 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
     <script type="text/babel">
-      //Counter component
-      function Counter({ count, setCount }) {
-        function increaseCount() {
-          const newCount = count + 1;
-          setCount(newCount);
-        }
-        return (
-          <button onClick={increaseCount}>
-            Clicked {count} {count === 1 ? "time" : "times"}
-          </button>
-        );
-      }
-
       function App() {
-        const [count, setCount] = React.useState(0);
+        const [inputText, setInputText] = React.useState("");
+        function saveInputText(event) {
+          setInputText(event.target.value);
+        }
         function reset() {
-          setCount(0);
+          setInputText("");
+        }
+        function example() {
+          setInputText("Farah");
         }
         return (
           <>
-            <Counter count={count} setCount={setCount} />
-            <Counter count={count} setCount={setCount} />
+            <input type="text" onChange={saveInputText} value={inputText} />
             <button onClick={reset}>Reset</button>
+            <button onClick={example}>Example</button>
+            <p>Hello {inputText}</p>
           </>
         );
       }
