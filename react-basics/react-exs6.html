@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>React Basics</title>
+    <style>
+      .email-input {
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+      .password-input {
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+      .login {
+        background-color: rgb(0, 123, 255);
+        padding: 10px;
+        border: none;
+        border-radius: 7px;
+        color: white;
+        margin-right: 10px;
+      }
+      .sign-up {
+        background-color: rgb(0, 123, 255);
+        padding: 10px;
+        border: none;
+        border-radius: 7px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script type="text/babel">
+      function App() {
+        const [showPassword, setShowPassword] = React.useState(false);
+        function showHidePassword() {
+          setShowPassword(!showPassword);
+        }
+        return (
+          <>
+            <h2>Hello, welcome to my website</h2>
+            <div>
+              <input className="email-input" type="text" placeholder="Email" />
+            </div>
+            <div>
+              <input
+                className="password-input"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+              />
+              <button onClick={showHidePassword}>
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+            <button className="login">Login</button>
+            <button className="sign-up">Sign Up</button>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
