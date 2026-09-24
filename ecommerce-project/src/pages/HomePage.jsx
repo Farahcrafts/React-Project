@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Header } from "../components/Header";
 import checkMark from "../assets/images/icons/checkmark.png";
-export function HomePage() {
+export function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
 
   // fetch data
   // fetch("http://localhost:3000/api/products")
@@ -21,10 +20,6 @@ export function HomePage() {
     //Use axios
     axios.get("http://localhost:3000/api/products").then((response) => {
       setProducts(response.data);
-    });
-
-    axios.get("http://localhost:3000/api/cart-items").then((response) => {
-      setCart(response.data);
     });
   }, []);
 

@@ -1,13 +1,13 @@
 import "./Checkout.css";
 import { CheckoutHeader } from "./CheckoutHeader";
 
-export function Checkout() {
+export function Checkout({ cart }) {
   return (
     <>
       <title>Checkout</title>
       <link rel="icon" type="image/svg+xml" href="cart.png" />
 
-      <CheckoutHeader />
+      <CheckoutHeader cart={cart} />
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
 
