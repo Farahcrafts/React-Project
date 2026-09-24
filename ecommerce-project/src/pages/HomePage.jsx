@@ -1,16 +1,22 @@
+import axios from "axios";
 import "./HomePage.css";
 import { products } from "../../starting-code/data/products.js";
 import { Header } from "../components/Header";
 import checkMark from "../assets/images/icons/checkmark.png";
 export function HomePage() {
   // fetch data
-  fetch("https://localhost:3000/api/products")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    });
+  // fetch("https://localhost:3000/api/products")
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     console.log(data);
+  //   });
+
+  //Use axios
+  axios.get("https://localhost:3000/api/products").then((response) => {
+    response.data;
+  });
 
   return (
     <>
