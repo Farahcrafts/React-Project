@@ -9,6 +9,7 @@ import { Tracking } from "./pages/Tracking";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
+  //Pour checkout
   const [cart, setCart] = useState([]);
   useEffect(() => {
     axios.get("/api/cart-items?expand=product").then((response) => {
@@ -21,7 +22,7 @@ function App() {
       <Routes>
         <Route index element={<HomePage cart={cart} />} />
         <Route path="/checkout" element={<Checkout cart={cart} />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders" element={<Orders cart={cart} />} />
         <Route path="/tracking" element={<Tracking />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

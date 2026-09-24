@@ -1,8 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Header } from "../components/Header";
 import checkMark from "../assets/images/icons/checkmark.png";
+import { moneyFormat } from "../utils/moneyFormat";
+
 export function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
 
@@ -29,6 +31,7 @@ export function HomePage({ cart }) {
       <title>Home Page</title>
 
       <Header cart={cart} />
+
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => {
@@ -53,7 +56,7 @@ export function HomePage({ cart }) {
                 </div>
 
                 <div className="product-price">
-                  ${(product.priceCents / 100).toFixed(2)}
+                  {moneyFormat(product.priceCents)}
                 </div>
 
                 <div className="product-quantity-container">
