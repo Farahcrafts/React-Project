@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import checkMark from "../assets/images/icons/checkmark.png";
 export function HomePage() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   // fetch data
   // fetch("http://localhost:3000/api/products")
@@ -21,6 +22,10 @@ export function HomePage() {
     axios.get("http://localhost:3000/api/products").then((response) => {
       setProducts(response.data);
     });
+
+    axios.get("http://localhost:3000/api/cart-items").then((response) => {
+      setCart(response.data);
+    });
   }, []);
 
   return (
@@ -28,7 +33,7 @@ export function HomePage() {
       <link rel="icon" type="image/svg+xml" href="home.png" />
       <title>Home Page</title>
 
-      <Header />
+      <Header cart={cart} />
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => {
