@@ -1,11 +1,13 @@
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./HomePage.css";
-import { products } from "../../starting-code/data/products.js";
 import { Header } from "../components/Header";
 import checkMark from "../assets/images/icons/checkmark.png";
 export function HomePage() {
+  const [products, setProducts] = useState([]);
+
   // fetch data
-  // fetch("https://localhost:3000/api/products")
+  // fetch("http://localhost:3000/api/products")
   //   .then((response) => {
   //     return response.json();
   //   })
@@ -13,10 +15,13 @@ export function HomePage() {
   //     console.log(data);
   //   });
 
-  //Use axios
-  axios.get("https://localhost:3000/api/products").then((response) => {
-    response.data;
-  });
+  //useEffect
+  useEffect(() => {
+    //Use axios
+    axios.get("http://localhost:3000/api/products").then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
 
   return (
     <>
