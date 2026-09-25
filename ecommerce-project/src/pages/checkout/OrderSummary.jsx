@@ -1,0 +1,57 @@
+import dayjs from "dayjs";
+import { moneyFormat } from "../../utils/moneyFormat";
+import { DeliveryOptions } from "./DeliveryOptions";
+
+export function OrderSummary({ deliveryOptions, cart }) {
+  return (
+    <div className="order-summary">
+      {deliveryOptions.length > 0 &&
+        cart.map((cartItem) => {
+          const selectedOption = deliveryOptions.find((opt) => {
+            return cartItem.deliveryOptionId === opt.id;
+          });
+
+          return (
+            <div key={cartItem.productId} className="cart-item-container">
+              <div className="delivery-date">
+                Delivery date:{" "}
+                {dayjs(selectedOption.estimatedDeliveryTimeMs).format(
+                  "dddd, MMMM D",
+                )}
+              </div>
+
+              <div className="cart-item-details-grid">
+                <img className="product-image" src={cartItem.product.image} />
+
+                <div className="cart-item-details">
+                  <div className="product-name">{cartItem.product.name}</div>
+                  <div className="product-price">
+                    {moneyFormat(cartItem.product.priceCents)}
+                  </div>
+                  <div className="product-quantity">
+                    <span>
+                      Quantity:
+                      <span className="quantity-label">
+                        {cartItem.quantity}
+                      </span>
+                    </span>
+                    <span className="update-quantity-link link-primary">
+                      Update
+                    </span>
+                    <span className="delete-quantity-link link-primary">
+                      Delete
+                    </span>
+                  </div>
+                </div>
+
+                <DeliveryOptions
+                  cartItem={cartItem}
+                  deliveryOptions={deliveryOptions}
+                />
+              </div>
+            </div>
+          );
+        })}
+    </div>
+  );
+}
