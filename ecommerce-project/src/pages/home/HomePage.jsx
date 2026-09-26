@@ -18,10 +18,13 @@ export function HomePage({ cart }) {
 
   //useEffect
   useEffect(() => {
-    //Use axios
-    axios.get("/api/products").then((response) => {
+    const getHomeData = async () => {
+      //Use axios
+      const response = await axios.get("/api/products");
       setProducts(response.data);
-    });
+    };
+
+    getHomeData();
   }, []);
 
   return (
